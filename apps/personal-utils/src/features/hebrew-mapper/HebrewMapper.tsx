@@ -24,6 +24,7 @@ export function HebrewMapper() {
         <CardTitle data-testid="heading">Hebrew Keyboard Mapper</CardTitle>
         <CardDescription>
           Type Hebrew characters to see the English keys that produced them on a US keyboard layout.
+          Use ^ before a Hebrew letter for uppercase output.
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -40,6 +41,10 @@ export function HebrewMapper() {
             className="min-h-[100px] text-lg"
             data-testid="hebrew-input"
           />
+          <p className="text-xs text-muted-foreground">
+            Type ^ before a Hebrew letter for uppercase (e.g., ^ש → A), before a digit for its Shift
+            symbol (e.g., ^9 → (), or ^^ for a literal ^
+          </p>
         </div>
 
         <div className="space-y-2">

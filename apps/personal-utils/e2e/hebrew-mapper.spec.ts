@@ -16,12 +16,6 @@ test.describe("Hebrew Keyboard Mapper", () => {
     await expect(input).toHaveAttribute("dir", "rtl");
   });
 
-  test("single character mapping: א → t", async ({ page }) => {
-    const input = page.getByTestId("hebrew-input");
-    await input.fill("א");
-    await expect(page.getByTestId("english-output")).toHaveText("t");
-  });
-
   test("multi-character sequence: שלום → akuo", async ({ page }) => {
     const input = page.getByTestId("hebrew-input");
     await input.fill("שלום");
@@ -97,5 +91,56 @@ test.describe("Hebrew Keyboard Mapper", () => {
 
   test("english output has aria-live attribute", async ({ page }) => {
     await expect(page.getByTestId("english-output")).toHaveAttribute("aria-live", "polite");
+  });
+
+  test("^ before Hebrew letter produces uppercase: ^ש → A", async ({ page }) => {
+    await page.getByTestId("hebrew-input").fill("^ש");
+    await expect(page.getByTestId("english-output")).toHaveText("A");
+  });
+
+  test("^ uppercase prefix mid-word: ש^לום → aKuo", async ({ page }) => {
+    await page.getByTestId("hebrew-input").fill("ש^לום");
+    await expect(page.getByTestId("english-output")).toHaveText("aKuo");
+  });
+
+  test("^ before non-Hebrew latin letter passes through literally: ^b → ^b", async ({ page }) => {
+    await page.getByTestId("hebrew-input").fill("^b");
+    await expect(page.getByTestId("english-output")).toHaveText("^b");
+  });
+
+  test("trailing ^ at end of string passes through: ש^ → a^", async ({ page }) => {
+    await page.getByTestId("hebrew-input").fill("ש^");
+    await expect(page.getByTestId("english-output")).toHaveText("a^");
+  });
+
+  test("mixed case realistic scenario: נה^שפ → bvAp", async ({ page }) => {
+    await page.getByTestId("hebrew-input").fill("נה^שפ");
+    await expect(page.getByTestId("english-output")).toHaveText("bvAp");
+  });
+
+  test("all Shift+digit mappings", async ({ page }) => {
+    const input = page.getByTestId("hebrew-input");
+    const output = page.getByTestId("english-output");
+    const pairs: [string, string][] = [
+      ["^1", "!"],
+      ["^2", "@"],
+      ["^3", "#"],
+      ["^4", "$"],
+      ["^5", "%"],
+      ["^6", "^"],
+      ["^7", "&"],
+      ["^8", "*"],
+      ["^9", "("],
+      ["^0", ")"],
+    ];
+    for (const [key, symbol] of pairs) {
+      await input.fill(key);
+      await expect(output).toHaveText(symbol);
+    }
+  });
+
+  test("^^ in a sequence: ש^^ל → ak^", async ({ page }) => {
+    await page.getByTestId("hebrew-input").fill("ש^^ל");
+    await expect(page.getByTestId("english-output")).toHaveText("a^k");
   });
 });
