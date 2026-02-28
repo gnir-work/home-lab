@@ -1,0 +1,28 @@
+default:
+    just --list
+
+dev:
+    yarn dev
+
+build:
+    yarn build
+
+lint:
+    yarn lint
+
+lint-fix:
+    yarn lint:fix
+
+typecheck:
+    yarn typecheck
+
+test:
+    yarn test:e2e
+
+test-ui:
+    yarn test:e2e:ui
+
+pre-commit: lint-fix typecheck test
+
+install:
+    yarn install
