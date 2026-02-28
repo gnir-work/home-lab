@@ -22,10 +22,10 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Lint
-        run: just lint
+        run: yarn lint
 
       - name: Typecheck
-        run: just typecheck
+        run: yarn typecheck
 
   test:
     name: E2E Tests
@@ -45,7 +45,7 @@ jobs:
         run: npx playwright install --with-deps chromium
 
       - name: Run E2E tests
-        run: just test
+        run: yarn test:e2e
 
       - uses: actions/upload-artifact@v4
         if: always()
@@ -70,4 +70,4 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Build
-        run: just build
+        run: yarn build
