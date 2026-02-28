@@ -17,6 +17,8 @@ jobs:
       - uses: actions/checkout@v4
 
       - uses: jdx/mise-action@v2
+        with:
+          working_directory: apps/personal-utils
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
@@ -37,6 +39,8 @@ jobs:
       - uses: actions/checkout@v4
 
       - uses: jdx/mise-action@v2
+        with:
+          working_directory: apps/personal-utils
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
@@ -64,6 +68,8 @@ jobs:
       - uses: actions/checkout@v4
 
       - uses: jdx/mise-action@v2
+        with:
+          working_directory: apps/personal-utils
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
