@@ -69,8 +69,8 @@ export function HebrewMapper() {
             className="flex-1"
             data-testid="copy-button"
           >
-            <Copy className="mr-2 h-4 w-4" />
             {copied ? "Copied!" : "Copy to Clipboard"}
+            <Copy className="ml-2 h-4 w-4" />
           </Button>
           <Button
             onClick={() => setHebrewInput("")}
@@ -78,8 +78,8 @@ export function HebrewMapper() {
             variant="outline"
             data-testid="clear-button"
           >
-            <X className="mr-2 h-4 w-4" />
             Clear
+            <X className="ml-2 h-4 w-4" />
           </Button>
         </div>
       </CardContent>
