@@ -25,4 +25,4 @@ test-ui:
 pre-commit: lint-fix typecheck test
 
 install:
-    yarn install
+    yarn install --frozen-lockfile
