@@ -31,10 +31,10 @@ jobs:
           working_directory: apps/personal-utils
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: just install
 
       - name: Build
-        run: yarn build
+        run: just build
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

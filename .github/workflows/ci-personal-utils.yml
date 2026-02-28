@@ -21,13 +21,13 @@ jobs:
           working_directory: apps/personal-utils
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: just install
 
       - name: Lint
-        run: yarn lint
+        run: just lint
 
       - name: Typecheck
-        run: yarn typecheck
+        run: just typecheck
 
   test:
     name: E2E Tests
@@ -43,13 +43,13 @@ jobs:
           working_directory: apps/personal-utils
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: just install
 
       - name: Install Playwright browsers
         run: npx playwright install --with-deps chromium
 
       - name: Run E2E tests
-        run: yarn test:e2e
+        run: just test
 
       - uses: actions/upload-artifact@v4
         if: always()
@@ -72,7 +72,7 @@ jobs:
           working_directory: apps/personal-utils
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: just install
 
       - name: Build
-        run: yarn build
+        run: just build
