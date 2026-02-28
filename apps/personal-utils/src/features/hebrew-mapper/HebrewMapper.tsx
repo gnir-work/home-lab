@@ -1,4 +1,4 @@
-import { Copy } from "lucide-react";
+import { Copy, X } from "lucide-react";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -61,16 +61,27 @@ export function HebrewMapper() {
           </div>
         </div>
 
-        <Button
-          onClick={handleCopy}
-          disabled={englishOutput.length === 0}
-          variant="outline"
-          className="w-full"
-          data-testid="copy-button"
-        >
-          <Copy className="mr-2 h-4 w-4" />
-          {copied ? "Copied!" : "Copy to Clipboard"}
-        </Button>
+        <div className="flex gap-2">
+          <Button
+            onClick={handleCopy}
+            disabled={englishOutput.length === 0}
+            variant="outline"
+            className="flex-1"
+            data-testid="copy-button"
+          >
+            <Copy className="mr-2 h-4 w-4" />
+            {copied ? "Copied!" : "Copy to Clipboard"}
+          </Button>
+          <Button
+            onClick={() => setHebrewInput("")}
+            disabled={hebrewInput.length === 0}
+            variant="outline"
+            data-testid="clear-button"
+          >
+            <X className="mr-2 h-4 w-4" />
+            Clear
+          </Button>
+        </div>
       </CardContent>
     </Card>
   );

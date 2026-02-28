@@ -143,4 +143,15 @@ test.describe("Hebrew Keyboard Mapper", () => {
     await page.getByTestId("hebrew-input").fill("ש^^ל");
     await expect(page.getByTestId("english-output")).toHaveText("a^k");
   });
+
+  test("clear button is disabled when input is empty", async ({ page }) => {
+    await expect(page.getByTestId("clear-button")).toBeDisabled();
+  });
+
+  test("clear button clears input and output", async ({ page }) => {
+    await page.getByTestId("hebrew-input").fill("שלום");
+    await page.getByTestId("clear-button").click();
+    await expect(page.getByTestId("hebrew-input")).toHaveValue("");
+    await expect(page.getByTestId("english-output")).not.toHaveText("akuo");
+  });
 });
