@@ -1,0 +1,23 @@
+dev:
+    docker compose -f docker-compose.yml -f docker-compose.dev.yml up
+
+run-prod:
+    docker compose -f docker-compose.yml -f docker-compose.prod.yml up --build
+
+pre-commit:
+    npm run check -w frontend
+    npm run check -w backend
+    npm test -w backend
+
+test-backend:
+    npm test -w backend
+
+check:
+    npm run check -w frontend
+    npm run check -w backend
+
+# Generate 12 months of fake data. Backend must be running.
+# Override months: just seed --months 24
+# Override URL:    BACKEND_URL=http://x just seed
+seed *ARGS:
+    node scripts/seed.mjs {{ARGS}}
