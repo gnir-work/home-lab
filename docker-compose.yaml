@@ -17,6 +17,8 @@ services:
     build:
       context: ./apps/money-manager
       dockerfile: frontend/Dockerfile.prod
+      args:
+        VITE_BASE_PATH: ${MONEY_MANAGER_BASE_PATH:-/money-manager/}
     container_name: money-manager-frontend
     restart: unless-stopped
     depends_on:
