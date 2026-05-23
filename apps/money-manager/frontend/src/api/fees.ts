@@ -1,6 +1,6 @@
 import type { FeeEntry, FeeSnapshot } from '../types/index.js';
 
-const BASE = '/api/fees';
+const BASE = `${import.meta.env.BASE_URL}api/fees`;
 
 export async function fetchAllFees(): Promise<FeeSnapshot[]> {
 	const res = await fetch(BASE);

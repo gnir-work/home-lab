@@ -1,6 +1,6 @@
 import type { PortfolioPosition, PortfolioSnapshot, PortfolioTargets } from '../types/index.js';
 
-const BASE = '/api/portfolio';
+const BASE = `${import.meta.env.BASE_URL}api/portfolio`;
 
 export async function fetchAllPortfolioSnapshots(): Promise<PortfolioSnapshot[]> {
 	const res = await fetch(BASE);
