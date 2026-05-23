@@ -37,3 +37,28 @@ services:
     entrypoint: sh
     command: -c "while true; do sleep 999999999999999; done"
     network_mode: "service:gluetun"
+
+  money-manager-backend:
+    build:
+      context: ./apps/money-manager
+      dockerfile: backend/Dockerfile.prod
+    container_name: money-manager-backend
+    restart: unless-stopped
+    environment:
+      - DATA_PATH=/app/data/snapshots.json
+      - FEES_PATH=/app/data/fees.json
+      - PORTFOLIO_PATH=/app/data/portfolio.json
+      - PORTFOLIO_TARGETS_PATH=/app/data/portfolio-targets.json
+    volumes:
+      - ${MONEY_MANAGER_DATA_DIR:-./apps/money-manager/data}:/app/data
+
+  money-manager-frontend:
+    build:
+      context: ./apps/money-manager
+      dockerfile: frontend/Dockerfile.prod
+    container_name: money-manager-frontend
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    depends_on:
+      - money-manager-backend

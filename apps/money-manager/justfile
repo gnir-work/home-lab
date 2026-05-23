@@ -1,23 +1,32 @@
+default:
+    just --list
+
+# Install dependencies
+install:
+    yarn install --frozen-lockfile
+
+# Run development environment
 dev:
     docker compose -f docker-compose.yml -f docker-compose.dev.yml up
 
+# Run production environment locally
 run-prod:
     docker compose -f docker-compose.yml -f docker-compose.prod.yml up --build
 
-pre-commit:
-    npm run check -w frontend
-    npm run check -w backend
-    npm test -w backend
-
-test-backend:
-    npm test -w backend
-
+# Lint + typecheck both workspaces
 check:
-    npm run check -w frontend
-    npm run check -w backend
+    yarn workspace money-manager-frontend check
+    yarn workspace money-manager-backend check
 
-# Generate 12 months of fake data. Backend must be running.
-# Override months: just seed --months 24
-# Override URL:    BACKEND_URL=http://x just seed
+# Run backend tests
+test-backend:
+    yarn workspace money-manager-backend test
+
+# Pre-commit: check + test
+pre-commit:
+    just check
+    just test-backend
+
+# Generate seed data (backend must be running)
 seed *ARGS:
     node scripts/seed.mjs {{ARGS}}
