@@ -1,0 +1,4 @@
+[tools]
+node = "20"
+yarn = "1.22"
+just = "1"

@@ -1,0 +1,32 @@
+name: CI — Money Manager
+
+on:
+  pull_request:
+    paths:
+      - 'apps/money-manager/**'
+      - '.github/workflows/ci-money-manager.yml'
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: jdx/mise-action@v2
+        with:
+          working_directory: apps/money-manager
+      - working-directory: apps/money-manager
+        run: just install
+      - working-directory: apps/money-manager
+        run: just check
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: jdx/mise-action@v2
+        with:
+          working_directory: apps/money-manager
+      - working-directory: apps/money-manager
+        run: just install
+      - working-directory: apps/money-manager
+        run: just test-backend

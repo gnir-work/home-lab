@@ -1,0 +1,5 @@
+{
+  "name": "money-manager",
+  "private": true,
+  "workspaces": ["frontend", "backend"]
+}

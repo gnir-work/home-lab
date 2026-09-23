@@ -1,0 +1,17 @@
+services:
+  backend:
+    build:
+      context: ./backend
+    volumes:
+      - ./data:/app/data
+    environment:
+      - DATA_PATH=/app/data/snapshots.json
+      - FEES_PATH=/app/data/fees.json
+      - PORTFOLIO_PATH=/app/data/portfolio.json
+      - PORTFOLIO_TARGETS_PATH=/app/data/portfolio-targets.json
+
+  frontend:
+    build:
+      context: ./frontend
+    depends_on:
+      - backend
